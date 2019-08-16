@@ -20,10 +20,9 @@ public class Main {
         Point currentLocation;
         boolean game = true;
         int counter = 0;
-        MemCard previousCard;
-        MemCard currentCard = null;
+        MemCard previousCard = null;
+        MemCard currentCard;
         while (game) {
-            previousCard = currentCard;
             try {
                 Thread.sleep(second);
                 currentLocation = MouseInfo.getPointerInfo().getLocation();
@@ -31,12 +30,26 @@ public class Main {
                 if (currentLocation.equals(lastLocation)){
                     counter++;
                     if (counter == flipCounter){
+                        counter = 0;
                         currentCard = flipCurrentCard(currentLocation, previousCard);
-                        if (previousCard == null){ // we flipped the first in the pair
+                        if (previousCard == null ) {
+                            // we flipped the first in the pair
+                            previousCard = currentCard;
                             continue;
                         }
+                        else if (currentCard == null){
+                            // stayed on same card or open card
+                            continue;
+                        }
+                        if (!(currentCard.getValue() == previousCard.getValue())) { // different value, flip back
+                            previousCard.flip();
+                            currentCard.flip();
+                        }
+                        // anyway we start over with new pairs
+                        previousCard = null;
                     }
                 }
+                lastLocation = currentLocation;
 //                System.out.println("x is: " + x + " y is: " + y);
                 System.out.println("you are pointing at: " + board.getCard(currentLocation.getX(), currentLocation.getY()));
             } catch (InterruptedException e) {
