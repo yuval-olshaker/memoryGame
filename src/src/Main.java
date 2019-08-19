@@ -74,8 +74,12 @@ public class Main {
         return currentCard;
     }
 
+    /**
+     * creates empty board and prints it
+     */
     private static void createBoard() {
         board = new Board(boardHeight, boardWidth);
+        board.printEmptyBoard();
     }
 
 }

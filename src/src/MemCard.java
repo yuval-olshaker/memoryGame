@@ -52,4 +52,8 @@ class MemCard {
     void setMinPoint(Point2D.Double minPoint) {
         this.minPoint = minPoint;
     }
+
+    void printCardFrame() {
+
+    }
 }
