@@ -53,7 +53,9 @@ class MemCard {
         this.minPoint = minPoint;
     }
 
-    void printCardFrame() {
-
+    void addCardToDrawBoard(DrawBoard drawBoard) {
+        RectToDraw rect = new RectToDraw((int)minPoint.getX(), (int)minPoint.getY(),
+                (int)maxPoint.getX(), (int)maxPoint.getY());
+        drawBoard.addRect(rect);
     }
 }

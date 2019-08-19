@@ -22,7 +22,8 @@ public class Main {
         int counter = 0;
         MemCard previousCard = null;
         MemCard currentCard;
-        while (game) {
+        while (game) { // maybe it is better to play full turns and not card by card.
+            // this decision is not very important because the game is not complicated
             try {
                 Thread.sleep(second);
                 currentLocation = MouseInfo.getPointerInfo().getLocation();
@@ -45,7 +46,7 @@ public class Main {
                             previousCard.flip();
                             currentCard.flip();
                         }
-                        // anyway we start over with new pairs
+                        // anyway we start over with new pairs - end of turn
                         previousCard = null;
                     }
                 }

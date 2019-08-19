@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -6,6 +7,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 class Board {
 
+    private JFrame frame;
     private static final String DELIM = "  ";
     private MemCard[][] board;
     private static final int min = 0;
@@ -14,6 +16,9 @@ class Board {
     private static final double screenWidth = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 
     Board(int boardHeight, int boardWidth) {
+        frame = new JFrame("Memory Game");
+        frame.setSize((int)screenWidth, (int)screenHeight);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         MemCard[] oneDimBoard = createOneDimBoard(boardHeight * boardWidth);
 
@@ -121,10 +126,15 @@ class Board {
      * prints an empty board - all cards face down
      */
     void printEmptyBoard() {
+        DrawBoard drawBoard = new DrawBoard();
         for (MemCard[] oneDimBoard : board) {
             for (MemCard memCard : oneDimBoard) {
-                memCard.printCardFrame();
+                memCard.addCardToDrawBoard(drawBoard);
             }
         }
+
+        frame.add(drawBoard);
+        frame.setVisible(true);
+
     }
 }
