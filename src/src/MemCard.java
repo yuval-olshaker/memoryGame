@@ -55,7 +55,7 @@ class MemCard {
 
     void addCardToDrawBoard(DrawBoard drawBoard) {
         RectToDraw rect = new RectToDraw((int)minPoint.getX(), (int)minPoint.getY(),
-                (int)maxPoint.getX(), (int)maxPoint.getY());
+                (int)maxPoint.getX(), (int)maxPoint.getY(), value, isOnDisplay());
         drawBoard.addRect(rect);
     }
 }

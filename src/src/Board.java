@@ -14,12 +14,10 @@ class Board {
     private static final int max = 100;
     private static final double screenHeight = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
     private static final double screenWidth = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+    private DrawBoard oldDrawBoard = null;
 
     Board(int boardHeight, int boardWidth) {
         frame = new JFrame("Memory Game");
-        frame.setSize((int)screenWidth, (int)screenHeight);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
         MemCard[] oneDimBoard = createOneDimBoard(boardHeight * boardWidth);
 
         // from one dim to 2 dim
@@ -122,19 +120,33 @@ class Board {
         return board[heightC][widthC];
     }
 
+
     /**
      * prints an empty board - all cards face down
      */
-    void printEmptyBoard() {
+    boolean printBoard() {
+        boolean hasHiddenCard = false;
         DrawBoard drawBoard = new DrawBoard();
         for (MemCard[] oneDimBoard : board) {
             for (MemCard memCard : oneDimBoard) {
                 memCard.addCardToDrawBoard(drawBoard);
+                hasHiddenCard |= !memCard.isOnDisplay();
             }
         }
 
+        if(oldDrawBoard != null) {
+            frame.remove(oldDrawBoard);
+        }
+        frame.setSize((int)screenWidth, (int)screenHeight);
+        frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         frame.add(drawBoard);
+        oldDrawBoard = drawBoard;
+        frame.validate();
+        frame.repaint();
         frame.setVisible(true);
 
+        return hasHiddenCard;
+
     }
+
 }

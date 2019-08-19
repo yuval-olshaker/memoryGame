@@ -3,15 +3,17 @@ import java.awt.*;
 
 public class Main {
 
-    private static final int boardHeight = 5;
-    private static final int boardWidth = 10;
+    private static final int boardHeight = 2;
+    private static final int boardWidth = 3;
     private static Board board;
     private static final int second = 1000;
     private static final int flipCounter = 2;
+    private static final int stopTomeToRemember = 2 * second;
 
     public static void main(String args[]){
         createBoard();
         runGame();
+        System.exit(0);
     }
 
     private static void runGame() {
@@ -24,6 +26,7 @@ public class Main {
         MemCard currentCard;
         while (game) { // maybe it is better to play full turns and not card by card.
             // this decision is not very important because the game is not complicated
+            game = board.printBoard(); // we print the board every time
             try {
                 Thread.sleep(second);
                 currentLocation = MouseInfo.getPointerInfo().getLocation();
@@ -43,6 +46,8 @@ public class Main {
                             continue;
                         }
                         if (!(currentCard.getValue() == previousCard.getValue())) { // different value, flip back
+                            game = board.printBoard();
+                            Thread.sleep(stopTomeToRemember); // time to remember
                             previousCard.flip();
                             currentCard.flip();
                         }
@@ -51,8 +56,6 @@ public class Main {
                     }
                 }
                 lastLocation = currentLocation;
-//                System.out.println("x is: " + x + " y is: " + y);
-                System.out.println("you are pointing at: " + board.getCard(currentLocation.getX(), currentLocation.getY()));
             } catch (InterruptedException e) {
                 game = false;
                 e.printStackTrace();
@@ -80,7 +83,7 @@ public class Main {
      */
     private static void createBoard() {
         board = new Board(boardHeight, boardWidth);
-        board.printEmptyBoard();
+        board.printBoard();
     }
 
 }

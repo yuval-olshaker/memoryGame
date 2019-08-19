@@ -4,7 +4,12 @@ class RectToDraw {
     private final int minY;
     private final int height;
     private final int width;
+    private final int value;
     private boolean showValue = false;
+
+    int getValue() {
+        return value;
+    }
 
     int getMinX() {
         return minX;
@@ -22,14 +27,16 @@ class RectToDraw {
         return width;
     }
 
-    public boolean isShowValue() {
+    boolean shouldShowValue() {
         return showValue;
     }
 
-    RectToDraw(int minX, int minY, int maxX, int maxY){
+    RectToDraw(int minX, int minY, int maxX, int maxY, int value, boolean showValue){
         this.minX = minX;
         this.minY = minY;
         this.height = maxY - minY;
         this.width = maxX - minX;
+        this.value = value;
+        this.showValue = showValue;
     }
 }
