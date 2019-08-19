@@ -12,11 +12,11 @@ class MemCard {
         onDisplay = false;
     }
 
-    public boolean isOnDisplay() {
+    boolean isOnDisplay() {
         return onDisplay;
     }
 
-    public int getValue() {
+    int getValue() {
         return value;
     }
 

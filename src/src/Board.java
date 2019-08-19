@@ -121,9 +121,9 @@ class Board {
      * prints an empty board - all cards face down
      */
     void printEmptyBoard() {
-        for (int i = 0; i<board.length; i++){
-            for (int j = 0; j<board[i].length; j++){
-                board[i][j].printCardFrame();
+        for (MemCard[] oneDimBoard : board) {
+            for (MemCard memCard : oneDimBoard) {
+                memCard.printCardFrame();
             }
         }
     }
